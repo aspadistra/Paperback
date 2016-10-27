@@ -43,13 +43,17 @@ tlib crypto.lib /C +aeskey+aestab+aes_x86_v1+hmac+pwd2key+sha2+aes_modes
 Building
 ===
 
-1) Download the free Embarcadero C++ Compiler 5.5 from here (scroll down):
+1) Download the free Embarcadero C++ Compiler 5.5 from here:
 
 https://downloads.embarcadero.com/free/c_builder
 
 2) Install it, then review C:\Borland\BCC55\readme.txt.
+
 3) Create bcc32.cfg and ilink32.cfg as directed.
-4) Edit the system path so that it includes the Borland binaries.  In regedit, navigate to:
+
+4) Edit the system path so that it includes the Borland binaries.  
+
+In Microsoft Windows regedit, navigate to:
 
 HKEY_LOCAL_MACHINE -> System -> CurrentControlSet -> Control -> Session Manager -> Environment -> PATH
 Now prepend the path C:\Borland\BCC55\Bin
@@ -62,5 +66,6 @@ Changelog
 ===
 
 1.00 - First public release
-1.10 - Fix crypto implementation
-       Switch to precompiled libraries
+
+1.10 - 1. Fix crypto implementation
+       2. Switch to precompiled libraries
