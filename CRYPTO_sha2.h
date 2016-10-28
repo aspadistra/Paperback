@@ -1,6 +1,8 @@
 /*
+
  ---------------------------------------------------------------------------
- Copyright (c) 2002, Dr Brian Gladman, Worcester, UK.   All rights reserved.
+ Copyright (c) 2002, Dr Brian Gladman, Worcester, UK.   
+ All rights reserved.
 
  LICENSE TERMS
 
@@ -28,6 +30,7 @@
  and/or fitness for purpose.
  ---------------------------------------------------------------------------
  Issue Date: 01/08/2005
+ 
 */
 
 #ifndef _SHA2_H
