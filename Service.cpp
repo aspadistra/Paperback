@@ -36,8 +36,8 @@
 #include "twain.h"
 #pragma hdrstop
 
-#include "paperbak.h"
-#include "resource.h"
+#include "Paperbak.h"
+#include "Paperback_Resources.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
