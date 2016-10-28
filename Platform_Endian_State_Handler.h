@@ -1,4 +1,5 @@
 /*
+
 ---------------------------------------------------------------------------
 Copyright (c) 1998-2010, Brian Gladman, Worcester, UK. All rights reserved.
 
@@ -16,6 +17,7 @@ in respect of its operation, including, but not limited to, correctness
 and fitness for purpose.
 ---------------------------------------------------------------------------
 Issue Date: 20/12/2007
+
 */
 
 #ifndef _BRG_ENDIAN_H
