@@ -1,4 +1,5 @@
 /*
+
  ---------------------------------------------------------------------------
  Copyright (c) 2002, Dr Brian Gladman, Worcester, UK.   All rights reserved.
 
@@ -31,6 +32,7 @@
 
  This is an implementation of RFC2898, which specifies key derivation from
  a password and a salt value.
+ 
 */
 
 #ifndef PWD2KEY_H
@@ -42,13 +44,16 @@ extern "C"
 #endif
 
 void derive_key(
-        const unsigned char pwd[],   /* the PASSWORD, and   */
-        unsigned int pwd_len,        /*    its length       */ 
+ 
+        const unsigned char pwd[],   /* the PASSWORD of variable length     */
+              unsigned int pwd_len,  /* the password length                 */ 
+        
         const unsigned char salt[],  /* the SALT and its    */
-        unsigned int salt_len,       /*    length           */
-        unsigned int iter,      /* the number of iterations */
-        unsigned char key[],    /* space for the output key */
-        unsigned int key_len);  /* and its required length  */
+              unsigned int salt_len, /* the Salt's length   */
+ 
+        unsigned int iter,           /* the number of iterations    */
+        unsigned char key[],         /* space for the output key    */
+        unsigned int key_len);       /* and its required length     */
 
 #if defined(__cplusplus)
 }
