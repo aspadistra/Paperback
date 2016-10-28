@@ -1,7 +1,9 @@
+
 #define M_FILE_OPEN    1001
 #define M_FILE_SAVEBMP 1002
 #define M_FILE_SELECT  1003
 #define M_FILE_ACQUIRE 1004
+
 #define M_FILE_PAGE    1005
 #define M_FILE_PRINT   1006
 #define M_FILE_EXIT    1007
@@ -14,10 +16,13 @@
 
 #define OPT_DENSITY    3101
 #define OPT_DOTSIZE    3102
+
 #define OPT_COMPRESS   3103
 #define OPT_REDUND     3104
+
 #define OPT_HEADER     3106
 #define OPT_BORDER     3107
+
 #define OPT_AUTOSAVE   3108
 #define OPT_HIQ        3109
 #define OPT_ENCRYPT    3110
