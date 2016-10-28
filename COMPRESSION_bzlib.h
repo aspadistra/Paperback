@@ -4,7 +4,9 @@
 /*---                                               bzlib.h ---*/
 /*-------------------------------------------------------------*/
 
-/* ------------------------------------------------------------------
+/* 
+
+------------------------------------------------------------------
    This file is part of bzip2/libbzip2, a program and library for
    lossless, block-sorting data compression.
 
@@ -16,7 +18,9 @@
 
    This program is released under the terms of the license contained
    in the file LICENSE.
-   ------------------------------------------------------------------ */
+------------------------------------------------------------------ 
+
+*/
 
 
 #ifndef _BZLIB_H
