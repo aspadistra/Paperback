@@ -33,9 +33,11 @@
 #include <stdio.h>
 #include <direct.h>
 #include <math.h>
+
 #include "twain.h"
 #include "CRYPTO/aes.h"
 #include "CRYPTO/pwd2key.h"
+
 #pragma hdrstop
 
 #include "paperbak.h"
@@ -43,6 +45,7 @@
 
 // Initializes printer settings. This operation is done blindly, without
 // displaying any dialogs. Call once during startup.
+
 void Initializeprintsettings(void) {
   int i,nres,res[64][2];
   DEVMODE *pdevmode;
@@ -147,8 +150,10 @@ void Closeprintsettings(void) {
   ;
 };
 
+///////////////////////////////////////////////////////////////////////////
 // Displays dialog asking to enter page borders. I assume that the structure
 // pagesetup is already initialized by call to Initializeprintsettings().
+
 void Setuppage(void) {
   pagesetup.rtMinMargin.left=0;
   pagesetup.rtMinMargin.right=0;
@@ -158,9 +163,11 @@ void Setuppage(void) {
   PageSetupDlg(&pagesetup);
 };
 
+/////////////////////////////////////////////////////////////////////////////
 // Service function, puts block of data to bitmap as a grid of 32x32 dots in
 // the position with given index. Bitmap is treated as a continuous line of
 // cells, where end of the line is connected to the start of the next line.
+
 static void Drawblock(int index,t_data *block,uchar *bits,int width,int height,
   int border,int nx,int ny,int dx,int dy,int px,int py,int black
 ) {
@@ -198,8 +205,10 @@ static void Drawblock(int index,t_data *block,uchar *bits,int width,int height,
   };
 };
 
+//////////////////////////////////////////////////////////////////////////////
 // Service function, clips regular 32x32-dot raster to bitmap in the position
 // with given block coordinates (may be outside the bitmap).
+
 static void Fillblock(int blockx,int blocky,uchar *bits,int width,int height,
   int border,int nx,int ny,int dx,int dy,int px,int py,int black
 ) {
@@ -235,7 +244,9 @@ static void Fillblock(int blockx,int blocky,uchar *bits,int width,int height,
   };
 };
 
+/////////////////////////////////////////////////////
 // Stops printing and cleans print descriptor.
+
 void Stopprinting(t_printdata *print) {
   // Finish compression.
   if (print->compression!=0) {
@@ -268,7 +279,9 @@ void Stopprinting(t_printdata *print) {
   print->step=0;
 };
 
+///////////////////////////////////////////////////////////
 // Opens input file and allocates memory buffers.
+
 static void Preparefiletoprint(t_printdata *print) {
   ulong l;
   FILETIME created,accessed,modified;
@@ -322,7 +335,9 @@ static void Preparefiletoprint(t_printdata *print) {
   print->step++;
 };
 
+//////////////////////////////////////////////////
 // Initializes bzip2 compression engine.
+
 static void Preparecompressor(t_printdata *print) {
   int success;
   // Check whether compression is requested at all.
@@ -343,7 +358,9 @@ static void Preparecompressor(t_printdata *print) {
   print->step++;
 };
 
+/////////////////////////////////////////////////
 // Compresses file.
+
 static void Readandcompress(t_printdata *print) {
   int success;
   ulong size,l;
@@ -386,7 +403,9 @@ static void Readandcompress(t_printdata *print) {
   ;
 };
 
+////////////////////////////////////////////////////////////////////////////
 // Finishes compression (may take significant time) and closes input file.
+
 static void Finishcompression(t_printdata *print) {
   int success;
   ulong l;
@@ -428,7 +447,9 @@ static void Finishcompression(t_printdata *print) {
   print->step++;
 };
 
+/////////////////////////////////////////////////////////////////
 // Writes (presumably) random data into the specified buffer
+
 static BOOL WINAPI GenerateRandomData(DWORD dwLen, BYTE *pbBuffer) {
   BOOL result = TRUE;
   HCRYPTPROV hProv;
@@ -441,6 +462,7 @@ static BOOL WINAPI GenerateRandomData(DWORD dwLen, BYTE *pbBuffer) {
   return result;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 // Encrypts data. I ask to enter password individually for each file. AES-256
 // encryption is very fast, so we don't need to split it into several steps.
 static void Encryptdata(t_printdata *print) {
