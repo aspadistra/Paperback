@@ -1,3 +1,4 @@
+
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 // PaperBack -- high density backups on the plain paper                       //
@@ -35,22 +36,33 @@
 #include <math.h>
 
 #include "twain.h"
-#include "CRYPTO/aes.h"
-#include "CRYPTO/pwd2key.h"
+#include "aes.h"
+#include "pwd2key.h"
 
 #pragma hdrstop
 
 #include "paperbak.h"
 #include "resource.h"
 
-// Initializes printer settings. This operation is done blindly, without
-// displaying any dialogs. Call once during startup.
+////////////////////////////////////////////////////
+// Comment Text here last revised : 28 OCT 2016
+//
+// This code initializes the MS Windows Printer subsystem settings. 
+// This operation is done blindly, without displaying any dialogs.
+// This routine is called once (and only once) during startup.
+////////////////////////////////////////////////////
 
 void Initializeprintsettings(void) {
+  
   int i,nres,res[64][2];
+  
   DEVMODE *pdevmode;
   DEVNAMES *pdevnames;
-  // Get default printer page settings.
+  
+  ///////////////////////////////////////////////
+  // Get default printer page structure settings.
+  ///////////////////////////////////////////////
+  
   if (pagesetup.lStructSize==0) {
     memset(&pagesetup,0,sizeof(PAGESETUPDLG));
     pagesetup.lStructSize=sizeof(PAGESETUPDLG);
@@ -71,9 +83,13 @@ void Initializeprintsettings(void) {
     else if (marginunits==2)
       pagesetup.Flags|=PSD_INHUNDREDTHSOFMILLIMETERS|PSD_MARGINS;
     PageSetupDlg(&pagesetup); };
-  // By system default, all margins are usually set to 1 inch. This means too
-  // much space is excluded from data carrying. So when all margins are 1 inch,
-  // I set them to more sound values.
+  
+  ////////////////////////////////////////////////
+  // By MS Windows System Default, all Printer Page Margins are usually set to 1 inch (or nearest Metric).
+  // This means that too much space is excluded from data carrying.
+  // So when all margins are 1 inch, they are reset them to more sound values.
+  //////////////////////////////////////////
+  
   if (pagesetup.Flags & PSD_INTHOUSANDTHSOFINCHES) {
     if (pagesetup.rtMargin.left==1000 &&
       pagesetup.rtMargin.right==1000 &&
@@ -95,27 +111,38 @@ void Initializeprintsettings(void) {
       pagesetup.rtMargin.bottom=1250;
     };
   };
+  
+  ////////////////////////////////////////////////////////////////////
   // Even if I set preferred dmPrintQuality to high, some printer drivers
-  // select lower resolution than physically available. Let's try to correct
-  // this... er... feature.
-  resx=resy=0;
-  if (pagesetup.hDevNames!=NULL) {
-    pdevnames=(DEVNAMES *)GlobalLock(pagesetup.hDevNames);
-    if (pdevnames!=NULL) {
-      // Ask for the length of the list of supported resolutions.
-      nres=DeviceCapabilities((char *)pdevnames+pdevnames->wDeviceOffset,
-        (char *)pdevnames+pdevnames->wOutputOffset,
+  // select lower resolution than physically available.
+  // This is an attempt to correct this feature or defect or flaw.
+  ////////////////////////////////////////////////////////////////////
+  
+  resx=0;
+  resy=0;
+  
+  if (pagesetup.hDevNames!=NULL) {pdevnames=(DEVNAMES *) GlobalLock(pagesetup.hDevNames);
+  
+  // Ask for the length of the list of supported resolutions.
+                                 
+    if (pdevnames!=NULL)
+     { nres=DeviceCapabilities((char *) pdevnames+pdevnames->wDeviceOffset, (char *)pdevnames+pdevnames->wOutputOffset,
         DC_ENUMRESOLUTIONS,NULL,NULL);
-      // Ask for the resolutions. I'm to lazy to allocate the memory
-      // dynamically and assume that no sound driver will support more than 64
-      // different resolutions.
-      if (nres>0 && nres<=64) {
-        DeviceCapabilities((char *)pdevnames+pdevnames->wDeviceOffset,
-        (char *)pdevnames+pdevnames->wOutputOffset,
+      
+      /////////////////////////////////////////////////////////////////////
+      // Ask for the device resolutions.
+      //
+      // It is hard to allocate the memory dynamically and also assume that
+      // no stabele driver will support more than 64 different resolutions.
+      //
+      /////////////////////////////////////////////////////////////////////
+      
+      if (nres>0 && nres<=64) { DeviceCapabilities((char *) pdevnames+pdevnames->wDeviceOffset, (char *)pdevnames+pdevnames->wOutputOffset,
         DC_ENUMRESOLUTIONS,(char *)res,NULL);
-        for (i=0; i<nres; i++) {
-          if (res[i][0]>=resx && res[i][1]>=resy) {
-            resx=res[i][0]; resy=res[i][1];
+                               
+        for (i=0; i<nres; i++) 
+          {
+          if (res[i][0]>=resx && res[i][1]>=resy) {resx=res[i][0]; resy=res[i][1];
           };
         };
       };
@@ -141,7 +168,10 @@ void Initializeprintsettings(void) {
   };
 };
 
+/////////////////////////////////////////////////////
 // Frees resources allocated by printing routines.
+/////////////////////////////////////////////////////
+
 void Closeprintsettings(void) {
   if ((pagesetup.hDevMode)!=NULL)
     GlobalFree(pagesetup.hDevMode);
@@ -150,9 +180,11 @@ void Closeprintsettings(void) {
   ;
 };
 
-///////////////////////////////////////////////////////////////////////////
-// Displays dialog asking to enter page borders. I assume that the structure
-// pagesetup is already initialized by call to Initializeprintsettings().
+//////////////////////////////////////////////////////////////////////////////////
+// This routing displays a dialog box asking the user to enter page borders from a list. 
+//
+// It is assumed that the structure pagesetup is already initialized by call to Initializeprintsettings().
+/////////////////////////////////////////////////////////////////////////////////
 
 void Setuppage(void) {
   pagesetup.rtMinMargin.left=0;
