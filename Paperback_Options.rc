@@ -1,9 +1,9 @@
 /****************************************************************************
 
 
-options.rc
+Paperback_Options.rc
 
-produced by Borland Resource Workshop
+Produced for use by Borland Resource Workshop
 
 
 *****************************************************************************/
@@ -12,6 +12,7 @@ produced by Borland Resource Workshop
 
 #define IDC_COMBOBOX1	101
 #define IDC_COMBOBOX2	106
+
 #define IDC_CHECKBOX2	107
 #define IDC_CHECKBOX3	108
 #define IDC_CHECKBOX1	102
@@ -30,7 +31,7 @@ FONT 8, "MS Sans Serif"
 
 {
 
-LTEXT "Printing options", -1, 6, 6, 60, 9
+ LTEXT "Printing options", -1, 6, 6, 60, 9
  CONTROL "", -1, "static", SS_BLACKFRAME | WS_CHILD | WS_VISIBLE, 6, 18, 123, 93
  LTEXT "Dot density", -1, 12, 27, 42, 9
  COMBOBOX IDC_COMBOBOX1, 57, 24, 39, 114, CBS_DROPDOWN | WS_TABSTOP
