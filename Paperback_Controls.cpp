@@ -36,8 +36,8 @@
 #include "twain.h"
 #pragma hdrstop
 
-#include "paperbak.h"
-#include "resource.h"
+#include "Paperbak.h"
+#include "Paperback_Resources.h"
 
 static HFONT     hfont20;              // 20-point bold font
 static int       font20height;         // Real height of hfont20
