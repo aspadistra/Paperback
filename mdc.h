@@ -1,4 +1,26 @@
-// mdc.h - written and placed in the public domain by Wei Dai
+//
+// Infos : https://en.wikipedia.org/wiki/MDC-2
+//
+// FYI :
+//
+// MDC-2 was covered by U.S. Patent 4,908,861, issued on March 13, 1990 but filed by IBM on August 28, 1987. 
+// For this reason, support for MDC-2 has been disabled in OpenSSL on most Linux distributions.
+// MDC-2 and is not implemented by many other cryptographic libraries.
+// The maximum life of a US paitent 20 years from filing date, so US Patent 4,908,861 could not have lasted beyond August 28, 2007.
+// In fact it has expired in 2002, as IBM has not paid the renewal fee.
+// The same goes for the paitent issued in Canada.
+// No patent was ever filed anywhere in Europe or Asia. 
+// This means that MDC-2 can be freely used.
+//
+//
+//
+//
+//
+//
+// ===========================================================
+// mdc.h - written and placed in the Public Domain by Wei Dai
+// ===========================================================
+//
 
 #ifndef CRYPTOPP_MDC_H
 #define CRYPTOPP_MDC_H
